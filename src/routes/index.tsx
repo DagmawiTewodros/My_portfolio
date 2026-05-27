@@ -222,20 +222,46 @@ function Index() {
 
       {/* Skills */}
       <section id="skills" className="border-t border-border/60">
-        <div className="mx-auto max-w-6xl px-6 py-24 grid md:grid-cols-12 gap-10">
-          <div className="md:col-span-4">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Toolkit</p>
-            <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold">Skills & stack.</h2>
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <div className="grid md:grid-cols-12 gap-10 mb-14">
+            <div className="md:col-span-4">
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Toolkit</p>
+              <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold">Skills & stack.</h2>
+            </div>
+            <div className="md:col-span-8">
+              <p className="text-muted-foreground leading-relaxed">
+                A curated set of technologies and practices I use to build reliable, performant software across web and mobile.
+              </p>
+            </div>
           </div>
-          <div className="md:col-span-8 flex flex-wrap gap-2.5">
-            {skills.map((s) => (
-              <span
-                key={s}
-                className="px-4 py-2 rounded-full border border-border bg-card text-sm font-medium hover:border-primary/60 hover:text-primary transition"
-              >
-                {s}
-              </span>
-            ))}
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {skillCategories.map((cat) => {
+              const Icon = cat.icon;
+              return (
+                <div
+                  key={cat.title}
+                  className="group relative flex flex-col bg-card border border-border rounded-2xl p-6 hover:border-primary/40 transition"
+                >
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="h-10 w-10 rounded-xl bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition">
+                      <Icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition" />
+                    </div>
+                    <h3 className="font-display text-base font-semibold">{cat.title}</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {cat.items.map((item) => (
+                      <div key={item.name} className="flex items-center justify-between">
+                        <span className="text-sm text-foreground font-medium">{item.name}</span>
+                        <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                          {item.level}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -256,13 +282,15 @@ function Index() {
               href="mailto:Dagmawi_Tewodros@outlook.com"
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition"
             >
-              <Mail className="h-4 w-4" /> Dagmawi_Tewodros@outlook.com
+              <Mail className="h-4 w-4" />
+              <span>Dagmawi_Tewodros@outlook.com</span>
             </a>
             <a
               href="tel:+251970514141"
               className="inline-flex items-center gap-2 border border-border px-6 py-3 rounded-full font-medium hover:bg-secondary transition"
             >
-              <Phone className="h-4 w-4" /> +251 97 051 4141
+              <Phone className="h-4 w-4" />
+              <span>+251 97 051 4141</span>
             </a>
           </div>
 
