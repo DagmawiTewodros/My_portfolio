@@ -309,7 +309,8 @@ function Index() {
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 hover:text-foreground transition"
           >
-            <Github className="h-4 w-4" /> github.com/DagmawiTewodros
+            <Github className="h-4 w-4" />
+            <span>github.com/DagmawiTewodros</span>
           </a>
         </div>
       </footer>
