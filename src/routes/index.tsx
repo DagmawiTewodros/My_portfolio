@@ -53,42 +53,71 @@ const projects = [
   },
 ];
 
-const skillCategories = [
-  {
-    title: "Frontend",
-    icon: Layout,
-    items: [
-      { name: "HTML", level: "Proficient" },
-      { name: "CSS", level: "Proficient" },
-      { name: "JavaScript", level: "Proficient" },
-      { name: "Responsive Design", level: "Proficient" },
-    ],
-  },
-  {
-    title: "Programming",
-    icon: Code2,
-    items: [
-      { name: "Python", level: "Proficient" },
-      { name: "SQLite", level: "Experienced" },
-    ],
-  },
-  {
-    title: "Mobile",
-    icon: Smartphone,
-    items: [
-      { name: "Flutter", level: "Proficient" },
-    ],
-  },
-  {
-    title: "Architecture",
-    icon: Cpu,
-    items: [
-      { name: "Clean Architecture", level: "Proficient" },
-      { name: "Git", level: "Experienced" },
-      { name: "Problem Solving", level: "Proficient" },
-    ],
-  },
+const skills = [
+  { name: "HTML", level: 95, category: "Frontend" },
+  { name: "CSS", level: 90, category: "Frontend" },
+  { name: "JavaScript", level: 88, category: "Frontend" },
+  { name: "Python", level: 85, category: "Backend" },
+  { name: "Flutter", level: 82, category: "Mobile" },
+  { name: "SQLite", level: 78, category: "Database" },
+  { name: "Git", level: 80, category: "Tools" },
+  { name: "Clean Arch.", level: 85, category: "Practice" },
 ];
+
+function SkillRing({ name, level, category }: { name: string; level: number; category: string }) {
+  const radius = 52;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (level / 100) * circumference;
+  const gradId = `grad-${name.replace(/[^a-zA-Z0-9]/g, "")}`;
+
+  return (
+    <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 flex flex-col items-center transition hover:border-[oklch(0.78_0.18_180)]/50 hover:bg-white/[0.06]">
+      <div
+        className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: "radial-gradient(circle, oklch(0.78 0.18 180 / 0.35), transparent 70%)" }}
+      />
+      <div
+        className="pointer-events-none absolute -bottom-20 -left-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: "radial-gradient(circle, oklch(0.7 0.25 320 / 0.3), transparent 70%)" }}
+      />
+
+      <div className="relative h-32 w-32">
+        <svg className="h-full w-full -rotate-90" viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="oklch(0.78 0.18 180)" />
+              <stop offset="100%" stopColor="oklch(0.7 0.25 320)" />
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r={radius} fill="none" stroke="oklch(1 0 0 / 0.08)" strokeWidth="8" />
+          <circle
+            cx="60"
+            cy="60"
+            r={radius}
+            fill="none"
+            stroke={`url(#${gradId})`}
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            style={{
+              filter: "drop-shadow(0 0 6px oklch(0.78 0.18 180 / 0.6))",
+              transition: "stroke-dashoffset 1s ease-out",
+            }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="font-display text-2xl font-bold text-white tabular-nums">{level}%</span>
+        </div>
+      </div>
+
+      <div className="mt-5 text-center">
+        <h3 className="font-display text-base font-semibold text-white">{name}</h3>
+        <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-white/50">{category}</p>
+      </div>
+    </div>
+  );
+}
 
 function Index() {
   return (
