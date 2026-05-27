@@ -109,7 +109,7 @@ function Index() {
             href="mailto:Dagmawi_Tewodros@outlook.com"
             className="inline-flex items-center gap-1.5 text-sm font-medium bg-foreground text-background px-4 py-2 rounded-full hover:bg-foreground/90 transition"
           >
-            Get in touch <ArrowUpRight className="h-3.5 w-3.5" />
+            <span>Get in touch</span> <ArrowUpRight className="h-3.5 w-3.5" />
           </a>
         </div>
       </header>
@@ -135,7 +135,7 @@ function Index() {
               href="#work"
               className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition"
             >
-              View selected work <ArrowUpRight className="h-4 w-4" />
+              <span>View selected work</span> <ArrowUpRight className="h-4 w-4" />
             </a>
             <a
               href="https://github.com/DagmawiTewodros"
@@ -143,7 +143,7 @@ function Index() {
               rel="noreferrer"
               className="inline-flex items-center gap-2 border border-border px-6 py-3 rounded-full font-medium hover:bg-secondary transition"
             >
-              <Github className="h-4 w-4" /> GitHub
+              <Github className="h-4 w-4" /> <span>GitHub</span>
             </a>
           </div>
         </div>
