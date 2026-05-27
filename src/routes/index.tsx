@@ -53,42 +53,71 @@ const projects = [
   },
 ];
 
-const skillCategories = [
-  {
-    title: "Frontend",
-    icon: Layout,
-    items: [
-      { name: "HTML", level: "Proficient" },
-      { name: "CSS", level: "Proficient" },
-      { name: "JavaScript", level: "Proficient" },
-      { name: "Responsive Design", level: "Proficient" },
-    ],
-  },
-  {
-    title: "Programming",
-    icon: Code2,
-    items: [
-      { name: "Python", level: "Proficient" },
-      { name: "SQLite", level: "Experienced" },
-    ],
-  },
-  {
-    title: "Mobile",
-    icon: Smartphone,
-    items: [
-      { name: "Flutter", level: "Proficient" },
-    ],
-  },
-  {
-    title: "Architecture",
-    icon: Cpu,
-    items: [
-      { name: "Clean Architecture", level: "Proficient" },
-      { name: "Git", level: "Experienced" },
-      { name: "Problem Solving", level: "Proficient" },
-    ],
-  },
+const skills = [
+  { name: "HTML", level: 95, category: "Frontend" },
+  { name: "CSS", level: 90, category: "Frontend" },
+  { name: "JavaScript", level: 88, category: "Frontend" },
+  { name: "Python", level: 85, category: "Backend" },
+  { name: "Flutter", level: 82, category: "Mobile" },
+  { name: "SQLite", level: 78, category: "Database" },
+  { name: "Git", level: 80, category: "Tools" },
+  { name: "Clean Arch.", level: 85, category: "Practice" },
 ];
+
+function SkillRing({ name, level, category }: { name: string; level: number; category: string }) {
+  const radius = 52;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (level / 100) * circumference;
+  const gradId = `grad-${name.replace(/[^a-zA-Z0-9]/g, "")}`;
+
+  return (
+    <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 flex flex-col items-center transition hover:border-[oklch(0.78_0.18_180)]/50 hover:bg-white/[0.06]">
+      <div
+        className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: "radial-gradient(circle, oklch(0.78 0.18 180 / 0.35), transparent 70%)" }}
+      />
+      <div
+        className="pointer-events-none absolute -bottom-20 -left-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ background: "radial-gradient(circle, oklch(0.7 0.25 320 / 0.3), transparent 70%)" }}
+      />
+
+      <div className="relative h-32 w-32">
+        <svg className="h-full w-full -rotate-90" viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="oklch(0.78 0.18 180)" />
+              <stop offset="100%" stopColor="oklch(0.7 0.25 320)" />
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r={radius} fill="none" stroke="oklch(1 0 0 / 0.08)" strokeWidth="8" />
+          <circle
+            cx="60"
+            cy="60"
+            r={radius}
+            fill="none"
+            stroke={`url(#${gradId})`}
+            strokeWidth="8"
+            strokeLinecap="round"
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            style={{
+              filter: "drop-shadow(0 0 6px oklch(0.78 0.18 180 / 0.6))",
+              transition: "stroke-dashoffset 1s ease-out",
+            }}
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="font-display text-2xl font-bold text-white tabular-nums">{level}%</span>
+        </div>
+      </div>
+
+      <div className="mt-5 text-center">
+        <h3 className="font-display text-base font-semibold text-white">{name}</h3>
+        <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-white/50">{category}</p>
+      </div>
+    </div>
+  );
+}
 
 function Index() {
   return (
@@ -221,50 +250,53 @@ function Index() {
       </section>
 
       {/* Skills */}
-      <section id="skills" className="border-t border-border/60">
-        <div className="mx-auto max-w-6xl px-6 py-24">
+      <section id="skills" className="relative overflow-hidden border-t border-border/60 bg-[oklch(0.13_0.02_265)] text-white">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-60"
+          style={{
+            background:
+              "radial-gradient(60% 40% at 20% 10%, oklch(0.78 0.18 180 / 0.18), transparent 70%), radial-gradient(50% 40% at 85% 90%, oklch(0.7 0.25 320 / 0.18), transparent 70%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-6xl px-6 py-24">
           <div className="grid md:grid-cols-12 gap-10 mb-14">
-            <div className="md:col-span-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Toolkit</p>
-              <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold">Skills & stack.</h2>
+            <div className="md:col-span-5">
+              <p className="text-xs uppercase tracking-[0.25em] text-[oklch(0.78_0.18_180)]">Toolkit</p>
+              <h2 className="mt-3 font-display text-3xl md:text-5xl font-bold text-white">
+                Skills &{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{ backgroundImage: "linear-gradient(90deg, oklch(0.78 0.18 180), oklch(0.7 0.25 320))" }}
+                >
+                  proficiency
+                </span>
+                .
+              </h2>
             </div>
-            <div className="md:col-span-8">
-              <p className="text-muted-foreground leading-relaxed">
-                A curated set of technologies and practices I use to build reliable, performant software across web and mobile.
+            <div className="md:col-span-7 flex md:items-end">
+              <p className="text-white/60 leading-relaxed">
+                A measured snapshot of the technologies I work with day-to-day — calibrated to real project depth, not buzzword bingo.
               </p>
             </div>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {skillCategories.map((cat) => {
-              const Icon = cat.icon;
-              return (
-                <div
-                  key={cat.title}
-                  className="group relative flex flex-col bg-card border border-border rounded-2xl p-6 hover:border-primary/40 transition"
-                >
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="h-10 w-10 rounded-xl bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition">
-                      <Icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition" />
-                    </div>
-                    <h3 className="font-display text-base font-semibold">{cat.title}</h3>
-                  </div>
-                  <div className="space-y-3">
-                    {cat.items.map((item) => (
-                      <div key={item.name} className="flex items-center justify-between">
-                        <span className="text-sm text-foreground font-medium">{item.name}</span>
-                        <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                          {item.level}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {skills.map((s) => (
+              <SkillRing key={s.name} {...s} />
+            ))}
           </div>
         </div>
       </section>
+
 
       {/* Contact */}
       <section id="contact" className="border-t border-border/60">
