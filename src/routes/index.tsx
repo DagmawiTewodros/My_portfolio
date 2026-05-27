@@ -1,5 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowUpRight, Github, Mail, Phone, MapPin } from "lucide-react";
+import {
+  ArrowUpRight,
+  Github,
+  Mail,
+  Phone,
+  MapPin,
+  Code2,
+  Layers,
+  Smartphone,
+  Database,
+  Layout,
+  GitBranch,
+  Cpu,
+} from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,8 +53,41 @@ const projects = [
   },
 ];
 
-const skills = [
-  "HTML", "CSS", "JavaScript", "Python", "Flutter", "SQLite", "Responsive Design", "Clean Architecture",
+const skillCategories = [
+  {
+    title: "Frontend",
+    icon: Layout,
+    items: [
+      { name: "HTML", level: "Proficient" },
+      { name: "CSS", level: "Proficient" },
+      { name: "JavaScript", level: "Proficient" },
+      { name: "Responsive Design", level: "Proficient" },
+    ],
+  },
+  {
+    title: "Programming",
+    icon: Code2,
+    items: [
+      { name: "Python", level: "Proficient" },
+      { name: "SQLite", level: "Experienced" },
+    ],
+  },
+  {
+    title: "Mobile",
+    icon: Smartphone,
+    items: [
+      { name: "Flutter", level: "Proficient" },
+    ],
+  },
+  {
+    title: "Architecture",
+    icon: Cpu,
+    items: [
+      { name: "Clean Architecture", level: "Proficient" },
+      { name: "Git", level: "Experienced" },
+      { name: "Problem Solving", level: "Proficient" },
+    ],
+  },
 ];
 
 function Index() {
