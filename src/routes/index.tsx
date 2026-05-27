@@ -250,50 +250,53 @@ function Index() {
       </section>
 
       {/* Skills */}
-      <section id="skills" className="border-t border-border/60">
-        <div className="mx-auto max-w-6xl px-6 py-24">
+      <section id="skills" className="relative overflow-hidden border-t border-border/60 bg-[oklch(0.13_0.02_265)] text-white">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-60"
+          style={{
+            background:
+              "radial-gradient(60% 40% at 20% 10%, oklch(0.78 0.18 180 / 0.18), transparent 70%), radial-gradient(50% 40% at 85% 90%, oklch(0.7 0.25 320 / 0.18), transparent 70%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage:
+              "linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
+
+        <div className="relative mx-auto max-w-6xl px-6 py-24">
           <div className="grid md:grid-cols-12 gap-10 mb-14">
-            <div className="md:col-span-4">
-              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Toolkit</p>
-              <h2 className="mt-3 font-display text-3xl md:text-4xl font-bold">Skills & stack.</h2>
+            <div className="md:col-span-5">
+              <p className="text-xs uppercase tracking-[0.25em] text-[oklch(0.78_0.18_180)]">Toolkit</p>
+              <h2 className="mt-3 font-display text-3xl md:text-5xl font-bold text-white">
+                Skills &{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{ backgroundImage: "linear-gradient(90deg, oklch(0.78 0.18 180), oklch(0.7 0.25 320))" }}
+                >
+                  proficiency
+                </span>
+                .
+              </h2>
             </div>
-            <div className="md:col-span-8">
-              <p className="text-muted-foreground leading-relaxed">
-                A curated set of technologies and practices I use to build reliable, performant software across web and mobile.
+            <div className="md:col-span-7 flex md:items-end">
+              <p className="text-white/60 leading-relaxed">
+                A measured snapshot of the technologies I work with day-to-day — calibrated to real project depth, not buzzword bingo.
               </p>
             </div>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {skillCategories.map((cat) => {
-              const Icon = cat.icon;
-              return (
-                <div
-                  key={cat.title}
-                  className="group relative flex flex-col bg-card border border-border rounded-2xl p-6 hover:border-primary/40 transition"
-                >
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="h-10 w-10 rounded-xl bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition">
-                      <Icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition" />
-                    </div>
-                    <h3 className="font-display text-base font-semibold">{cat.title}</h3>
-                  </div>
-                  <div className="space-y-3">
-                    {cat.items.map((item) => (
-                      <div key={item.name} className="flex items-center justify-between">
-                        <span className="text-sm text-foreground font-medium">{item.name}</span>
-                        <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                          {item.level}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {skills.map((s) => (
+              <SkillRing key={s.name} {...s} />
+            ))}
           </div>
         </div>
       </section>
+
 
       {/* Contact */}
       <section id="contact" className="border-t border-border/60">
