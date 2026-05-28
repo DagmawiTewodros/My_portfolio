@@ -71,25 +71,25 @@ function SkillRing({ name, level, category }: { name: string; level: number; cat
   const gradId = `grad-${name.replace(/[^a-zA-Z0-9]/g, "")}`;
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 flex flex-col items-center transition hover:border-[oklch(0.78_0.18_180)]/50 hover:bg-white/[0.06]">
+    <div className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 flex flex-col items-center transition hover:border-primary/50 hover:shadow-[0_20px_60px_-20px_oklch(0.62_0.19_258_/_0.15)]">
       <div
         className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: "radial-gradient(circle, oklch(0.78 0.18 180 / 0.35), transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, oklch(0.62 0.19 258 / 0.12), transparent 70%)" }}
       />
       <div
         className="pointer-events-none absolute -bottom-20 -left-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: "radial-gradient(circle, oklch(0.7 0.25 320 / 0.3), transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, oklch(0.62 0.19 258 / 0.10), transparent 70%)" }}
       />
 
       <div className="relative h-32 w-32">
         <svg className="h-full w-full -rotate-90" viewBox="0 0 120 120">
           <defs>
             <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="oklch(0.78 0.18 180)" />
-              <stop offset="100%" stopColor="oklch(0.7 0.25 320)" />
+              <stop offset="0%" stopColor="oklch(0.62 0.19 258)" />
+              <stop offset="100%" stopColor="oklch(0.55 0.18 240)" />
             </linearGradient>
           </defs>
-          <circle cx="60" cy="60" r={radius} fill="none" stroke="oklch(1 0 0 / 0.08)" strokeWidth="8" />
+          <circle cx="60" cy="60" r={radius} fill="none" stroke="oklch(0.85 0.015 255)" strokeWidth="8" />
           <circle
             cx="60"
             cy="60"
@@ -101,19 +101,19 @@ function SkillRing({ name, level, category }: { name: string; level: number; cat
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             style={{
-              filter: "drop-shadow(0 0 6px oklch(0.78 0.18 180 / 0.6))",
+              filter: "drop-shadow(0 0 5px oklch(0.62 0.19 258 / 0.35))",
               transition: "stroke-dashoffset 1s ease-out",
             }}
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-display text-2xl font-bold text-white tabular-nums">{level}%</span>
+          <span className="font-display text-2xl font-bold text-foreground tabular-nums">{level}%</span>
         </div>
       </div>
 
       <div className="mt-5 text-center">
-        <h3 className="font-display text-base font-semibold text-white">{name}</h3>
-        <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-white/50">{category}</p>
+        <h3 className="font-display text-base font-semibold text-foreground">{name}</h3>
+        <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{category}</p>
       </div>
     </div>
   );
@@ -250,19 +250,19 @@ function Index() {
       </section>
 
       {/* Skills */}
-      <section id="skills" className="relative overflow-hidden border-t border-border/60 bg-[oklch(0.13_0.02_265)] text-white">
+      <section id="skills" className="relative overflow-hidden border-t border-border/60 bg-secondary/40">
         <div
-          className="pointer-events-none absolute inset-0 opacity-60"
+          className="pointer-events-none absolute inset-0 opacity-40"
           style={{
             background:
-              "radial-gradient(60% 40% at 20% 10%, oklch(0.78 0.18 180 / 0.18), transparent 70%), radial-gradient(50% 40% at 85% 90%, oklch(0.7 0.25 320 / 0.18), transparent 70%)",
+              "radial-gradient(60% 40% at 20% 10%, oklch(0.62 0.19 258 / 0.08), transparent 70%), radial-gradient(50% 40% at 85% 90%, oklch(0.55 0.18 240 / 0.06), transparent 70%)",
           }}
         />
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          className="pointer-events-none absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
-              "linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)",
+              "linear-gradient(oklch(0.18 0.02 260) 1px, transparent 1px), linear-gradient(90deg, oklch(0.18 0.02 260) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
@@ -270,12 +270,12 @@ function Index() {
         <div className="relative mx-auto max-w-6xl px-6 py-24">
           <div className="grid md:grid-cols-12 gap-10 mb-14">
             <div className="md:col-span-5">
-              <p className="text-xs uppercase tracking-[0.25em] text-[oklch(0.78_0.18_180)]">Toolkit</p>
-              <h2 className="mt-3 font-display text-3xl md:text-5xl font-bold text-white">
+              <p className="text-xs uppercase tracking-[0.25em] text-primary">Toolkit</p>
+              <h2 className="mt-3 font-display text-3xl md:text-5xl font-bold text-foreground">
                 Skills &{" "}
                 <span
                   className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: "linear-gradient(90deg, oklch(0.78 0.18 180), oklch(0.7 0.25 320))" }}
+                  style={{ backgroundImage: "linear-gradient(90deg, oklch(0.62 0.19 258), oklch(0.45 0.16 240))" }}
                 >
                   proficiency
                 </span>
@@ -283,7 +283,7 @@ function Index() {
               </h2>
             </div>
             <div className="md:col-span-7 flex md:items-end">
-              <p className="text-white/60 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 A measured snapshot of the technologies I work with day-to-day — calibrated to real project depth, not buzzword bingo.
               </p>
             </div>
