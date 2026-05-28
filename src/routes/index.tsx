@@ -71,25 +71,25 @@ function SkillRing({ name, level, category }: { name: string; level: number; cat
   const gradId = `grad-${name.replace(/[^a-zA-Z0-9]/g, "")}`;
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl p-6 flex flex-col items-center transition hover:border-[oklch(0.78_0.18_180)]/50 hover:bg-white/[0.06]">
+    <div className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 flex flex-col items-center transition hover:border-primary/50 hover:shadow-[0_20px_60px_-20px_oklch(0.62_0.19_258_/_0.15)]">
       <div
         className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: "radial-gradient(circle, oklch(0.78 0.18 180 / 0.35), transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, oklch(0.62 0.19 258 / 0.12), transparent 70%)" }}
       />
       <div
         className="pointer-events-none absolute -bottom-20 -left-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: "radial-gradient(circle, oklch(0.7 0.25 320 / 0.3), transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, oklch(0.62 0.19 258 / 0.10), transparent 70%)" }}
       />
 
       <div className="relative h-32 w-32">
         <svg className="h-full w-full -rotate-90" viewBox="0 0 120 120">
           <defs>
             <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="oklch(0.78 0.18 180)" />
-              <stop offset="100%" stopColor="oklch(0.7 0.25 320)" />
+              <stop offset="0%" stopColor="oklch(0.62 0.19 258)" />
+              <stop offset="100%" stopColor="oklch(0.55 0.18 240)" />
             </linearGradient>
           </defs>
-          <circle cx="60" cy="60" r={radius} fill="none" stroke="oklch(1 0 0 / 0.08)" strokeWidth="8" />
+          <circle cx="60" cy="60" r={radius} fill="none" stroke="oklch(0.85 0.015 255)" strokeWidth="8" />
           <circle
             cx="60"
             cy="60"
@@ -101,19 +101,19 @@ function SkillRing({ name, level, category }: { name: string; level: number; cat
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             style={{
-              filter: "drop-shadow(0 0 6px oklch(0.78 0.18 180 / 0.6))",
+              filter: "drop-shadow(0 0 5px oklch(0.62 0.19 258 / 0.35))",
               transition: "stroke-dashoffset 1s ease-out",
             }}
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-display text-2xl font-bold text-white tabular-nums">{level}%</span>
+          <span className="font-display text-2xl font-bold text-foreground tabular-nums">{level}%</span>
         </div>
       </div>
 
       <div className="mt-5 text-center">
-        <h3 className="font-display text-base font-semibold text-white">{name}</h3>
-        <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-white/50">{category}</p>
+        <h3 className="font-display text-base font-semibold text-foreground">{name}</h3>
+        <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{category}</p>
       </div>
     </div>
   );
