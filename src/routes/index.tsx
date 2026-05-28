@@ -250,19 +250,19 @@ function Index() {
       </section>
 
       {/* Skills */}
-      <section id="skills" className="relative overflow-hidden border-t border-border/60 bg-[oklch(0.13_0.02_265)] text-white">
+      <section id="skills" className="relative overflow-hidden border-t border-border/60 bg-secondary/40">
         <div
-          className="pointer-events-none absolute inset-0 opacity-60"
+          className="pointer-events-none absolute inset-0 opacity-40"
           style={{
             background:
-              "radial-gradient(60% 40% at 20% 10%, oklch(0.78 0.18 180 / 0.18), transparent 70%), radial-gradient(50% 40% at 85% 90%, oklch(0.7 0.25 320 / 0.18), transparent 70%)",
+              "radial-gradient(60% 40% at 20% 10%, oklch(0.62 0.19 258 / 0.08), transparent 70%), radial-gradient(50% 40% at 85% 90%, oklch(0.55 0.18 240 / 0.06), transparent 70%)",
           }}
         />
         <div
-          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          className="pointer-events-none absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
-              "linear-gradient(oklch(1 0 0) 1px, transparent 1px), linear-gradient(90deg, oklch(1 0 0) 1px, transparent 1px)",
+              "linear-gradient(oklch(0.18 0.02 260) 1px, transparent 1px), linear-gradient(90deg, oklch(0.18 0.02 260) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
@@ -270,12 +270,12 @@ function Index() {
         <div className="relative mx-auto max-w-6xl px-6 py-24">
           <div className="grid md:grid-cols-12 gap-10 mb-14">
             <div className="md:col-span-5">
-              <p className="text-xs uppercase tracking-[0.25em] text-[oklch(0.78_0.18_180)]">Toolkit</p>
-              <h2 className="mt-3 font-display text-3xl md:text-5xl font-bold text-white">
+              <p className="text-xs uppercase tracking-[0.25em] text-primary">Toolkit</p>
+              <h2 className="mt-3 font-display text-3xl md:text-5xl font-bold text-foreground">
                 Skills &{" "}
                 <span
                   className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: "linear-gradient(90deg, oklch(0.78 0.18 180), oklch(0.7 0.25 320))" }}
+                  style={{ backgroundImage: "linear-gradient(90deg, oklch(0.62 0.19 258), oklch(0.45 0.16 240))" }}
                 >
                   proficiency
                 </span>
@@ -283,7 +283,7 @@ function Index() {
               </h2>
             </div>
             <div className="md:col-span-7 flex md:items-end">
-              <p className="text-white/60 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 A measured snapshot of the technologies I work with day-to-day — calibrated to real project depth, not buzzword bingo.
               </p>
             </div>
