@@ -74,19 +74,19 @@ function SkillRing({ name, level, category }: { name: string; level: number; cat
     <div className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 flex flex-col items-center transition hover:border-primary/50 hover:shadow-[0_20px_60px_-20px_oklch(0.62_0.19_258_/_0.15)]">
       <div
         className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: "radial-gradient(circle, oklch(0.62 0.19 258 / 0.12), transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, oklch(0.52 0.11 180 / 0.12), transparent 70%)" }}
       />
       <div
         className="pointer-events-none absolute -bottom-20 -left-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: "radial-gradient(circle, oklch(0.62 0.19 258 / 0.10), transparent 70%)" }}
+        style={{ background: "radial-gradient(circle, oklch(0.52 0.11 180 / 0.10), transparent 70%)" }}
       />
 
       <div className="relative h-32 w-32">
         <svg className="h-full w-full -rotate-90" viewBox="0 0 120 120">
           <defs>
             <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="oklch(0.62 0.19 258)" />
-              <stop offset="100%" stopColor="oklch(0.55 0.18 240)" />
+              <stop offset="0%" stopColor="oklch(0.52 0.11 180)" />
+              <stop offset="100%" stopColor="oklch(0.62 0.13 175)" />
             </linearGradient>
           </defs>
           <circle cx="60" cy="60" r={radius} fill="none" stroke="oklch(0.85 0.015 255)" strokeWidth="8" />
@@ -101,7 +101,7 @@ function SkillRing({ name, level, category }: { name: string; level: number; cat
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             style={{
-              filter: "drop-shadow(0 0 5px oklch(0.62 0.19 258 / 0.35))",
+              filter: "drop-shadow(0 0 5px oklch(0.52 0.11 180 / 0.35))",
               transition: "stroke-dashoffset 1s ease-out",
             }}
           />
@@ -255,7 +255,7 @@ function Index() {
           className="pointer-events-none absolute inset-0 opacity-40"
           style={{
             background:
-              "radial-gradient(60% 40% at 20% 10%, oklch(0.62 0.19 258 / 0.08), transparent 70%), radial-gradient(50% 40% at 85% 90%, oklch(0.55 0.18 240 / 0.06), transparent 70%)",
+              "radial-gradient(60% 40% at 20% 10%, oklch(0.52 0.11 180 / 0.08), transparent 70%), radial-gradient(50% 40% at 85% 90%, oklch(0.62 0.13 175 / 0.06), transparent 70%)",
           }}
         />
         <div
@@ -275,7 +275,7 @@ function Index() {
                 Skills &{" "}
                 <span
                   className="bg-clip-text text-transparent"
-                  style={{ backgroundImage: "linear-gradient(90deg, oklch(0.62 0.19 258), oklch(0.45 0.16 240))" }}
+                  style={{ backgroundImage: "linear-gradient(90deg, oklch(0.52 0.11 180), oklch(0.4 0.09 185))" }}
                 >
                   proficiency
                 </span>
