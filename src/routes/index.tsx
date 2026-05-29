@@ -34,8 +34,6 @@ export const Route = createFileRoute("/")({
 
 const projects = [
   {
-const projects = [
-  {
     title: "FarmKeeper",
     tag: "Mobile · Flutter",
     description:
@@ -192,8 +190,10 @@ function ProjectCard({
           </div>
         </div>
       </div>
-    </div>
-  );
+}
+
+const skills = [
+  { name: "HTML", level: 95, category: "Frontend" },
 }
   { name: "CSS", level: 90, category: "Frontend" },
   { name: "JavaScript", level: 88, category: "Frontend" },
