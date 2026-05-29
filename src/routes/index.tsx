@@ -357,34 +357,7 @@ function Index() {
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((p) => (
-              <a
-                key={p.title}
-                href={p.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative flex flex-col bg-card border border-border rounded-2xl p-7 hover:border-primary/50 hover:shadow-[0_20px_60px_-20px_oklch(0.62_0.19_258_/_0.25)] transition"
-              >
-                <div className="flex items-start justify-between mb-6">
-                  <span className="text-xs uppercase tracking-wider text-muted-foreground">
-                    {p.tag}
-                  </span>
-                  <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition" />
-                </div>
-                <h3 className="font-display text-2xl font-bold tracking-tight">{p.title}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
-                  {p.description}
-                </p>
-                <div className="mt-6 flex flex-wrap gap-1.5">
-                  {p.highlights.map((h) => (
-                    <span
-                      key={h}
-                      className="text-[11px] px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground border border-border"
-                    >
-                      {h}
-                    </span>
-                  ))}
-                </div>
-              </a>
+              <ProjectCard key={p.title} project={p} />
             ))}
           </div>
         </div>
