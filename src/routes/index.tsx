@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   Github,
@@ -13,7 +14,12 @@ import {
   GitBranch,
   Cpu,
 } from "lucide-react";
-
+import mmitImg from "@/assets/mmit.png";
+import lostIdImg from "@/assets/lostid.png";
+import fk1 from "@/assets/farmkeeper-1.png";
+import fk2 from "@/assets/farmkeeper-2.png";
+import fk3 from "@/assets/farmkeeper-3.png";
+import fk4 from "@/assets/farmkeeper-4.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -34,6 +40,7 @@ const projects = [
       "A local-only mobile app for farmers to manage crops, track watering schedules, and monitor harvest dates. Auto-calculates harvest dates from planting and maturity data, sends push reminders, and supports a full crop journal with photos, yields, and quality tracking.",
     highlights: ["Crop Registration", "Watering Reminders", "Harvest Tracking", "Crop Journal"],
     href: "https://github.com/DagmawiTewodros/farmkeeper",
+    preview: { type: "slideshow" as const, images: [fk1, fk2, fk3, fk4] },
   },
   {
     title: "MMIT Web",
@@ -42,6 +49,7 @@ const projects = [
       "A modern website for the Mated Management Institute, designed to present programs, faculty, and student resources with a clean, accessible layout that works across devices.",
     highlights: ["Responsive UI", "Content-driven", "Institutional"],
     href: "https://github.com/DagmawiTewodros/MMIT_web",
+    preview: { type: "image" as const, image: mmitImg },
   },
   {
     title: "Lost ID Reporting System",
@@ -50,8 +58,141 @@ const projects = [
       "A reporting system for lost student IDs at Addis Ababa University. Students report missing IDs, finders post matches, and the platform streamlines retrieval through a simple, secure workflow.",
     highlights: ["Auth Flow", "Reporting Workflow", "Search & Match"],
     href: "https://github.com/Elizabeth-Abay/Lost_Id_Reporting_System",
+    preview: { type: "image" as const, image: lostIdImg },
   },
 ];
+
+type ProjectPreview =
+  | { type: "image"; image: string }
+  | { type: "slideshow"; images: string[] };
+
+function ProjectCard({
+  project,
+}: {
+  project: {
+    title: string;
+    tag: string;
+    description: string;
+    highlights: string[];
+    href: string;
+    preview: ProjectPreview;
+  };
+}) {
+  const [flipped, setFlipped] = useState(false);
+  const [slide, setSlide] = useState(0);
+
+  useEffect(() => {
+    if (!flipped || project.preview.type !== "slideshow") return;
+    const images = project.preview.images;
+    const id = setInterval(() => {
+      setSlide((s) => (s + 1) % images.length);
+    }, 1800);
+    return () => clearInterval(id);
+  }, [flipped, project.preview]);
+
+  return (
+    <div className="group relative h-[420px]" style={{ perspective: "1200px" }}>
+      <div
+        className="relative h-full w-full transition-transform duration-700"
+        style={{
+          transformStyle: "preserve-3d",
+          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        }}
+      >
+        {/* Front */}
+        <button
+          type="button"
+          onClick={() => setFlipped(true)}
+          className="absolute inset-0 flex flex-col bg-card border border-border rounded-2xl p-7 text-left hover:border-primary/50 hover:shadow-[0_20px_60px_-20px_oklch(0.52_0.11_180_/_0.25)] transition"
+          style={{ backfaceVisibility: "hidden" }}
+        >
+          <div className="flex items-start justify-between mb-6">
+            <span className="text-xs uppercase tracking-wider text-muted-foreground">
+              {project.tag}
+            </span>
+            <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition" />
+          </div>
+          <h3 className="font-display text-2xl font-bold tracking-tight">{project.title}</h3>
+          <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
+            {project.description}
+          </p>
+          <div className="mt-6 flex flex-wrap gap-1.5">
+            {project.highlights.map((h) => (
+              <span
+                key={h}
+                className="text-[11px] px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground border border-border"
+              >
+                {h}
+              </span>
+            ))}
+          </div>
+          <span className="mt-4 text-[11px] uppercase tracking-[0.18em] text-primary">
+            Click to preview →
+          </span>
+        </button>
+
+        {/* Back */}
+        <div
+          className="absolute inset-0 rounded-2xl border border-border bg-card overflow-hidden"
+          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+        >
+          <div className="relative h-full w-full bg-secondary/40">
+            {project.preview.type === "image" ? (
+              <img
+                src={project.preview.image}
+                alt={`${project.title} preview`}
+                className="absolute inset-0 h-full w-full object-contain p-3"
+              />
+            ) : (
+              <>
+                {project.preview.images.map((src, i) => (
+                  <img
+                    key={src}
+                    src={src}
+                    alt={`${project.title} screen ${i + 1}`}
+                    className="absolute inset-0 h-full w-full object-contain p-3 transition-opacity duration-700"
+                    style={{ opacity: i === slide ? 1 : 0 }}
+                  />
+                ))}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                  {project.preview.images.map((_, i) => (
+                    <span
+                      key={i}
+                      className={`h-1.5 rounded-full transition-all ${
+                        i === slide ? "w-6 bg-primary" : "w-1.5 bg-border"
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setFlipped(false);
+                setSlide(0);
+              }}
+              className="absolute top-3 left-3 text-[11px] uppercase tracking-[0.18em] bg-background/90 backdrop-blur border border-border px-3 py-1.5 rounded-full hover:bg-background transition"
+            >
+              ← Back
+            </button>
+            <a
+              href={project.href}
+              target="_blank"
+              rel="noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="absolute top-3 right-3 inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.18em] bg-primary text-primary-foreground px-3 py-1.5 rounded-full hover:bg-primary/90 transition"
+            >
+              Repo <ArrowUpRight className="h-3 w-3" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const skills = [
   { name: "HTML", level: 95, category: "Frontend" },
@@ -216,34 +357,7 @@ function Index() {
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((p) => (
-              <a
-                key={p.title}
-                href={p.href}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative flex flex-col bg-card border border-border rounded-2xl p-7 hover:border-primary/50 hover:shadow-[0_20px_60px_-20px_oklch(0.62_0.19_258_/_0.25)] transition"
-              >
-                <div className="flex items-start justify-between mb-6">
-                  <span className="text-xs uppercase tracking-wider text-muted-foreground">
-                    {p.tag}
-                  </span>
-                  <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition" />
-                </div>
-                <h3 className="font-display text-2xl font-bold tracking-tight">{p.title}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
-                  {p.description}
-                </p>
-                <div className="mt-6 flex flex-wrap gap-1.5">
-                  {p.highlights.map((h) => (
-                    <span
-                      key={h}
-                      className="text-[11px] px-2.5 py-1 rounded-full bg-secondary text-secondary-foreground border border-border"
-                    >
-                      {h}
-                    </span>
-                  ))}
-                </div>
-              </a>
+              <ProjectCard key={p.title} project={p} />
             ))}
           </div>
         </div>
