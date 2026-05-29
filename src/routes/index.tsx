@@ -190,11 +190,12 @@ function ProjectCard({
           </div>
         </div>
       </div>
+    </div>
+  );
 }
 
 const skills = [
   { name: "HTML", level: 95, category: "Frontend" },
-}
   { name: "CSS", level: 90, category: "Frontend" },
   { name: "JavaScript", level: 88, category: "Frontend" },
   { name: "Python", level: 85, category: "Backend" },
