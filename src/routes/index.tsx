@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   Github,
@@ -13,7 +14,12 @@ import {
   GitBranch,
   Cpu,
 } from "lucide-react";
-
+import mmitImg from "@/assets/mmit.png";
+import lostIdImg from "@/assets/lostid.png";
+import fk1 from "@/assets/farmkeeper-1.png";
+import fk2 from "@/assets/farmkeeper-2.png";
+import fk3 from "@/assets/farmkeeper-3.png";
+import fk4 from "@/assets/farmkeeper-4.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
