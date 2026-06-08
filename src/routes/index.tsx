@@ -82,12 +82,24 @@ function ProjectCard({
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {
-    if (!flipped || project.preview.type !== "slideshow") return;
-    const images = project.preview.images;
-    const id = setInterval(() => {
-      setSlide((s) => (s + 1) % images.length);
-    }, 1800);
-    return () => clearInterval(id);
+    if (!flipped) return;
+    const timers: ReturnType<typeof setInterval>[] = [];
+    if (project.preview.type === "slideshow") {
+      const images = project.preview.images;
+      timers.push(
+        setInterval(() => {
+          setSlide((s) => (s + 1) % images.length);
+        }, 1800),
+      );
+    }
+    const flipBack = setTimeout(() => {
+      setFlipped(false);
+      setSlide(0);
+    }, 2000);
+    return () => {
+      timers.forEach(clearInterval);
+      clearTimeout(flipBack);
+    };
   }, [flipped, project.preview]);
 
   return (
