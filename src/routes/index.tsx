@@ -269,7 +269,7 @@ function SkillsMarquee() {
                 src={s.url}
                 alt={s.name}
                 loading="lazy"
-                className="max-h-10 max-w-full object-contain opacity-80 grayscale transition group-hover/logo:opacity-100 group-hover/logo:grayscale-0"
+                className="max-h-10 max-w-full object-contain transition group-hover/logo:scale-110"
               />
             </div>
           ))}
