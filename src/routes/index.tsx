@@ -482,6 +482,8 @@ function Index() {
               <SkillRing key={s.name} {...s} />
             ))}
           </div>
+
+          <SkillsMarquee />
         </div>
       </section>
 
