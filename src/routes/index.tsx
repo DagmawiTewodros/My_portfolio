@@ -82,12 +82,24 @@ function ProjectCard({
   const [slide, setSlide] = useState(0);
 
   useEffect(() => {
-    if (!flipped || project.preview.type !== "slideshow") return;
-    const images = project.preview.images;
-    const id = setInterval(() => {
-      setSlide((s) => (s + 1) % images.length);
-    }, 1800);
-    return () => clearInterval(id);
+    if (!flipped) return;
+    const timers: ReturnType<typeof setInterval>[] = [];
+    if (project.preview.type === "slideshow") {
+      const images = project.preview.images;
+      timers.push(
+        setInterval(() => {
+          setSlide((s) => (s + 1) % images.length);
+        }, 1800),
+      );
+    }
+    const flipBack = setTimeout(() => {
+      setFlipped(false);
+      setSlide(0);
+    }, 2000);
+    return () => {
+      timers.forEach(clearInterval);
+      clearTimeout(flipBack);
+    };
   }, [flipped, project.preview]);
 
   return (
@@ -198,12 +210,74 @@ const skills = [
   { name: "HTML", level: 95, category: "Frontend" },
   { name: "CSS", level: 90, category: "Frontend" },
   { name: "JavaScript", level: 88, category: "Frontend" },
+  { name: "TypeScript", level: 82, category: "Frontend" },
   { name: "Python", level: 85, category: "Backend" },
   { name: "Flutter", level: 82, category: "Mobile" },
   { name: "SQLite", level: 78, category: "Database" },
   { name: "Git", level: 80, category: "Tools" },
   { name: "Clean Arch.", level: 85, category: "Practice" },
 ];
+
+const skillLogos = [
+  { name: "HTML5", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+  { name: "CSS3", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
+  { name: "JavaScript", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+  { name: "TypeScript", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+  { name: "Python", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "Flutter", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" },
+  { name: "Dart", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" },
+  { name: "SQLite", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" },
+  { name: "Git", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+  { name: "GitHub", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+  { name: "React", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+  { name: "Tailwind CSS", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
+  { name: "VS Code", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+  { name: "Figma", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+];
+
+function SkillsMarquee() {
+  const row = [...skillLogos, ...skillLogos];
+  return (
+    <div
+      className="relative mt-12 overflow-hidden"
+      style={{
+        maskImage: "linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)",
+        WebkitMaskImage: "linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)",
+      }}
+    >
+      <style>{`
+        @keyframes skills-marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        .skills-marquee-track {
+          animation: skills-marquee 35s linear infinite;
+        }
+        .skills-marquee:hover .skills-marquee-track {
+          animation-play-state: paused;
+        }
+      `}</style>
+      <div className="skills-marquee">
+        <div className="skills-marquee-track flex w-max gap-10 py-4">
+          {row.map((s, i) => (
+            <div
+              key={`${s.name}-${i}`}
+              className="group/logo flex h-20 w-32 shrink-0 items-center justify-center rounded-xl border border-border bg-card/70 backdrop-blur px-4 transition hover:border-primary/60 hover:bg-card"
+              title={s.name}
+            >
+              <img
+                src={s.url}
+                alt={s.name}
+                loading="lazy"
+                className="max-h-10 max-w-full object-contain opacity-80 grayscale transition group-hover/logo:opacity-100 group-hover/logo:grayscale-0"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function SkillRing({ name, level, category }: { name: string; level: number; category: string }) {
   const radius = 52;
@@ -408,6 +482,8 @@ function Index() {
               <SkillRing key={s.name} {...s} />
             ))}
           </div>
+
+          <SkillsMarquee />
         </div>
       </section>
 
