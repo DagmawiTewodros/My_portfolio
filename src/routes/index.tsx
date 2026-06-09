@@ -4,15 +4,7 @@ import {
   ArrowUpRight,
   Github,
   Mail,
-  Phone,
   MapPin,
-  Code2,
-  Layers,
-  Smartphone,
-  Database,
-  Layout,
-  GitBranch,
-  Cpu,
 } from "lucide-react";
 import mmitImg from "@/assets/mmit.png";
 import lostIdImg from "@/assets/lostid.png";
@@ -40,31 +32,48 @@ const projects = [
       "A local-only mobile app for farmers to manage crops, track watering schedules, and monitor harvest dates. Auto-calculates harvest dates from planting and maturity data, sends push reminders, and supports a full crop journal with photos, yields, and quality tracking.",
     highlights: ["Crop Registration", "Watering Reminders", "Harvest Tracking", "Crop Journal"],
     href: "https://github.com/DagmawiTewodros/farmkeeper",
-    preview: { type: "slideshow" as const, images: [fk1, fk2, fk3, fk4] },
+    preview: {
+      type: "slideshow" as const,
+      images: [fk1, fk2, fk3, fk4],
+      alts: [
+        "FarmKeeper crop registration screen showing planting date input",
+        "FarmKeeper watering schedule and reminder screen",
+        "FarmKeeper harvest tracking screen with date calculator",
+        "FarmKeeper crop journal with photo and yield logging",
+      ],
+    },
   },
   {
     title: "MMIT Web",
     tag: "Web · Institutional",
     description:
-      "A modern website for the Mated Management Institute, designed to present programs, faculty, and student resources with a clean, accessible layout that works across devices.",
+      "A modern website for the Mated Management Institute — built to present programs, faculty, and student resources without friction, across any device.",
     highlights: ["Responsive UI", "Content-driven", "Institutional"],
     href: "https://github.com/DagmawiTewodros/MMIT_web",
-    preview: { type: "image" as const, image: mmitImg },
+    preview: {
+      type: "image" as const,
+      image: mmitImg,
+      alt: "MMIT website homepage showing programs and faculty layout",
+    },
   },
   {
     title: "Lost ID Reporting System",
     tag: "Web · University",
     description:
-      "A reporting system for lost student IDs at Addis Ababa University. Students report missing IDs, finders post matches, and the platform streamlines retrieval through a simple, secure workflow.",
+      "A reporting system for lost student IDs at Addis Ababa University. Students report missing IDs, finders post matches — one platform replaces the whole back-and-forth.",
     highlights: ["Auth Flow", "Reporting Workflow", "Search & Match"],
     href: "https://github.com/Elizabeth-Abay/Lost_Id_Reporting_System",
-    preview: { type: "image" as const, image: lostIdImg },
+    preview: {
+      type: "image" as const,
+      image: lostIdImg,
+      alt: "Lost ID reporting system search and match interface",
+    },
   },
 ];
 
 type ProjectPreview =
-  | { type: "image"; image: string }
-  | { type: "slideshow"; images: string[] };
+  | { type: "image"; image: string; alt: string }
+  | { type: "slideshow"; images: string[]; alts: string[] };
 
 function ProjectCard({
   project,
@@ -152,7 +161,7 @@ function ProjectCard({
             {project.preview.type === "image" ? (
               <img
                 src={project.preview.image}
-                alt={`${project.title} preview`}
+                alt={project.preview.alt}
                 className="absolute inset-0 h-full w-full object-contain p-3"
               />
             ) : (
@@ -161,7 +170,7 @@ function ProjectCard({
                   <img
                     key={src}
                     src={src}
-                    alt={`${project.title} screen ${i + 1}`}
+                    alt={project.preview.type === "slideshow" ? project.preview.alts[i] : ""}
                     className="absolute inset-0 h-full w-full object-contain p-3 transition-opacity duration-700"
                     style={{ opacity: i === slide ? 1 : 0 }}
                   />
@@ -206,17 +215,6 @@ function ProjectCard({
   );
 }
 
-const skills = [
-  { name: "HTML", level: 95, category: "Frontend" },
-  { name: "CSS", level: 90, category: "Frontend" },
-  { name: "JavaScript", level: 88, category: "Frontend" },
-  { name: "TypeScript", level: 82, category: "Frontend" },
-  { name: "Python", level: 85, category: "Backend" },
-  { name: "Flutter", level: 82, category: "Mobile" },
-  { name: "SQLite", level: 78, category: "Database" },
-  { name: "Git", level: 80, category: "Tools" },
-  { name: "Clean Arch.", level: 85, category: "Practice" },
-];
 
 const skillLogos = [
   { name: "HTML5", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
@@ -279,60 +277,6 @@ function SkillsMarquee() {
   );
 }
 
-function SkillRing({ name, level, category }: { name: string; level: number; category: string }) {
-  const radius = 52;
-  const circumference = 2 * Math.PI * radius;
-  const offset = circumference - (level / 100) * circumference;
-  const gradId = `grad-${name.replace(/[^a-zA-Z0-9]/g, "")}`;
-
-  return (
-    <div className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 flex flex-col items-center transition hover:border-primary/50 hover:shadow-[0_20px_60px_-20px_oklch(0.62_0.19_258_/_0.15)]">
-      <div
-        className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: "radial-gradient(circle, oklch(0.52 0.11 180 / 0.12), transparent 70%)" }}
-      />
-      <div
-        className="pointer-events-none absolute -bottom-20 -left-16 h-40 w-40 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{ background: "radial-gradient(circle, oklch(0.52 0.11 180 / 0.10), transparent 70%)" }}
-      />
-
-      <div className="relative h-32 w-32">
-        <svg className="h-full w-full -rotate-90" viewBox="0 0 120 120">
-          <defs>
-            <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="oklch(0.52 0.11 180)" />
-              <stop offset="100%" stopColor="oklch(0.62 0.13 175)" />
-            </linearGradient>
-          </defs>
-          <circle cx="60" cy="60" r={radius} fill="none" stroke="oklch(0.85 0.015 255)" strokeWidth="8" />
-          <circle
-            cx="60"
-            cy="60"
-            r={radius}
-            fill="none"
-            stroke={`url(#${gradId})`}
-            strokeWidth="8"
-            strokeLinecap="round"
-            strokeDasharray={circumference}
-            strokeDashoffset={offset}
-            style={{
-              filter: "drop-shadow(0 0 5px oklch(0.52 0.11 180 / 0.35))",
-              transition: "stroke-dashoffset 1s ease-out",
-            }}
-          />
-        </svg>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-display text-2xl font-bold text-foreground tabular-nums">{level}%</span>
-        </div>
-      </div>
-
-      <div className="mt-5 text-center">
-        <h3 className="font-display text-base font-semibold text-foreground">{name}</h3>
-        <p className="mt-1 text-[11px] uppercase tracking-[0.2em] text-muted-foreground">{category}</p>
-      </div>
-    </div>
-  );
-}
 
 function Index() {
   return (
@@ -366,13 +310,12 @@ function Index() {
             Software Developer · Addis Ababa
           </p>
           <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold leading-[1.02] tracking-tight max-w-4xl">
-            Building modern, reliable software with{" "}
-            <span className="text-primary">clean architecture</span> and thoughtful design.
+            Software that works — <span className="text-primary">clean, fast,</span> and built to last.
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            I'm Dagmawi Tewodros — a software developer working across web and mobile.
-            I enjoy turning real-world problems into responsive, performant, and secure
-            applications.
+            I'm Dagmawi Tewodros — a software developer based in Addis Ababa working
+            across web and mobile. I turn real-world problems into responsive,
+            performant, and secure applications.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
@@ -403,13 +346,12 @@ function Index() {
           <div className="md:col-span-8 text-lg leading-relaxed text-muted-foreground space-y-5">
             <p className="text-foreground">
               I'm a software developer skilled in HTML, CSS, JavaScript, Python, Flutter,
-              and SQLite, with experience building modern, secure, and reliable applications.
+              and SQLite. I build modern, secure applications with clean architecture and
+              a focus on what actually matters — does it solve the problem?
             </p>
             <p>
-              I enjoy developing responsive websites and mobile applications with clean
-              architecture, strong performance, and user-friendly design. I'm passionate
-              about using technology to solve real-world problems, continuously improving
-              my skills, and creating impactful digital solutions.
+              I'm passionate about using technology to address real needs, and I'm always
+              working to sharpen my craft.
             </p>
           </div>
         </div>
@@ -456,7 +398,7 @@ function Index() {
         />
 
         <div className="relative mx-auto max-w-6xl px-6 py-24">
-          <div className="grid md:grid-cols-12 gap-10 mb-14">
+          <div className="grid md:grid-cols-12 gap-10 mb-6">
             <div className="md:col-span-5">
               <p className="text-xs uppercase tracking-[0.25em] text-primary">Toolkit</p>
               <h2 className="mt-3 font-display text-3xl md:text-5xl font-bold text-foreground">
@@ -465,22 +407,16 @@ function Index() {
                   className="bg-clip-text text-transparent"
                   style={{ backgroundImage: "linear-gradient(90deg, oklch(0.52 0.11 180), oklch(0.4 0.09 185))" }}
                 >
-                  proficiency
+                  tools
                 </span>
                 .
               </h2>
             </div>
             <div className="md:col-span-7 flex md:items-end">
               <p className="text-muted-foreground leading-relaxed">
-                A measured snapshot of the technologies I work with day-to-day — calibrated to real project depth, not buzzword bingo.
+                Technologies I work with.
               </p>
             </div>
-          </div>
-
-          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {skills.map((s) => (
-              <SkillRing key={s.name} {...s} />
-            ))}
           </div>
 
           <SkillsMarquee />
@@ -493,10 +429,11 @@ function Index() {
         <div className="mx-auto max-w-6xl px-6 py-28 text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Contact</p>
           <h2 className="mt-4 font-display text-4xl md:text-6xl font-extrabold tracking-tight">
-            Let's build something <span className="text-primary">together</span>.
+            Let's <span className="text-primary">talk</span>.
           </h2>
           <p className="mt-6 max-w-xl mx-auto text-muted-foreground text-lg">
-            Open to collaborations, freelance projects, and interesting problems worth solving.
+            Have a problem worth solving? I'm open to collaborations, freelance projects,
+            and interesting challenges.
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -508,11 +445,13 @@ function Index() {
               <span>Dagmawi_Tewodros@outlook.com</span>
             </a>
             <a
-              href="tel:+251970514141"
+              href="https://github.com/DagmawiTewodros"
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-2 border border-border px-6 py-3 rounded-full font-medium hover:bg-secondary transition"
             >
-              <Phone className="h-4 w-4" />
-              <span>+251 97 051 4141</span>
+              <Github className="h-4 w-4" />
+              <span>GitHub</span>
             </a>
           </div>
 
