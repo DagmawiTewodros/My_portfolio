@@ -375,13 +375,12 @@ function Index() {
             Software Developer · Addis Ababa
           </p>
           <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold leading-[1.02] tracking-tight max-w-4xl">
-            Building modern, reliable software with{" "}
-            <span className="text-primary">clean architecture</span> and thoughtful design.
+            Software that works — <span className="text-primary">clean, fast,</span> and built to last.
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            I'm Dagmawi Tewodros — a software developer working across web and mobile.
-            I enjoy turning real-world problems into responsive, performant, and secure
-            applications.
+            I'm Dagmawi Tewodros — a software developer based in Addis Ababa working
+            across web and mobile. I turn real-world problems into responsive,
+            performant, and secure applications.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
