@@ -77,6 +77,9 @@ type ProjectPreview =
 
 function ProjectCard({
   project,
+  isOpen,
+  onOpen,
+  onClose,
 }: {
   project: {
     title: string;
@@ -86,30 +89,43 @@ function ProjectCard({
     href: string;
     preview: ProjectPreview;
   };
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
 }) {
-  const [flipped, setFlipped] = useState(false);
   const [slide, setSlide] = useState(0);
+  const SLIDE_MS = 1800;
+  const IMAGE_MS = 2000;
 
   useEffect(() => {
-    if (!flipped) return;
+    if (!isOpen) {
+      setSlide(0);
+      return;
+    }
     const timers: ReturnType<typeof setInterval>[] = [];
+    let flipBack: ReturnType<typeof setTimeout>;
     if (project.preview.type === "slideshow") {
       const images = project.preview.images;
+      let i = 0;
       timers.push(
         setInterval(() => {
-          setSlide((s) => (s + 1) % images.length);
-        }, 1800),
+          i += 1;
+          if (i >= images.length) {
+            clearInterval(timers[0]);
+            flipBack = setTimeout(() => onClose(), SLIDE_MS);
+            return;
+          }
+          setSlide(i);
+        }, SLIDE_MS),
       );
+    } else {
+      flipBack = setTimeout(() => onClose(), IMAGE_MS);
     }
-    const flipBack = setTimeout(() => {
-      setFlipped(false);
-      setSlide(0);
-    }, 2000);
     return () => {
       timers.forEach(clearInterval);
-      clearTimeout(flipBack);
+      if (flipBack) clearTimeout(flipBack);
     };
-  }, [flipped, project.preview]);
+  }, [isOpen, project.preview, onClose]);
 
   return (
     <div className="group relative h-[420px]" style={{ perspective: "1200px" }}>
@@ -117,13 +133,13 @@ function ProjectCard({
         className="relative h-full w-full transition-transform duration-700"
         style={{
           transformStyle: "preserve-3d",
-          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+          transform: isOpen ? "rotateY(180deg)" : "rotateY(0deg)",
         }}
       >
         {/* Front */}
         <button
           type="button"
-          onClick={() => setFlipped(true)}
+          onClick={onOpen}
           className="absolute inset-0 flex flex-col bg-card border border-border rounded-2xl p-7 text-left hover:border-primary/50 hover:shadow-[0_20px_60px_-20px_oklch(0.52_0.11_180_/_0.25)] transition"
           style={{ backfaceVisibility: "hidden" }}
         >
