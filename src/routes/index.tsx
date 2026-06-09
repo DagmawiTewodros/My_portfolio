@@ -4,15 +4,7 @@ import {
   ArrowUpRight,
   Github,
   Mail,
-  Phone,
   MapPin,
-  Code2,
-  Layers,
-  Smartphone,
-  Database,
-  Layout,
-  GitBranch,
-  Cpu,
 } from "lucide-react";
 import mmitImg from "@/assets/mmit.png";
 import lostIdImg from "@/assets/lostid.png";
