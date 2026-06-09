@@ -411,13 +411,12 @@ function Index() {
           <div className="md:col-span-8 text-lg leading-relaxed text-muted-foreground space-y-5">
             <p className="text-foreground">
               I'm a software developer skilled in HTML, CSS, JavaScript, Python, Flutter,
-              and SQLite, with experience building modern, secure, and reliable applications.
+              and SQLite. I build modern, secure applications with clean architecture and
+              a focus on what actually matters — does it solve the problem?
             </p>
             <p>
-              I enjoy developing responsive websites and mobile applications with clean
-              architecture, strong performance, and user-friendly design. I'm passionate
-              about using technology to solve real-world problems, continuously improving
-              my skills, and creating impactful digital solutions.
+              I'm passionate about using technology to address real needs, and I'm always
+              working to sharpen my craft.
             </p>
           </div>
         </div>
