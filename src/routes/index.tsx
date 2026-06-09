@@ -215,17 +215,6 @@ function ProjectCard({
   );
 }
 
-const skills = [
-  { name: "HTML", level: 95, category: "Frontend" },
-  { name: "CSS", level: 90, category: "Frontend" },
-  { name: "JavaScript", level: 88, category: "Frontend" },
-  { name: "TypeScript", level: 82, category: "Frontend" },
-  { name: "Python", level: 85, category: "Backend" },
-  { name: "Flutter", level: 82, category: "Mobile" },
-  { name: "SQLite", level: 78, category: "Database" },
-  { name: "Git", level: 80, category: "Tools" },
-  { name: "Clean Arch.", level: 85, category: "Practice" },
-];
 
 const skillLogos = [
   { name: "HTML5", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
