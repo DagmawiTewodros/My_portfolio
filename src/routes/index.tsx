@@ -463,7 +463,7 @@ function Index() {
         />
 
         <div className="relative mx-auto max-w-6xl px-6 py-24">
-          <div className="grid md:grid-cols-12 gap-10 mb-14">
+          <div className="grid md:grid-cols-12 gap-10 mb-6">
             <div className="md:col-span-5">
               <p className="text-xs uppercase tracking-[0.25em] text-primary">Toolkit</p>
               <h2 className="mt-3 font-display text-3xl md:text-5xl font-bold text-foreground">
@@ -472,22 +472,16 @@ function Index() {
                   className="bg-clip-text text-transparent"
                   style={{ backgroundImage: "linear-gradient(90deg, oklch(0.52 0.11 180), oklch(0.4 0.09 185))" }}
                 >
-                  proficiency
+                  tools
                 </span>
                 .
               </h2>
             </div>
             <div className="md:col-span-7 flex md:items-end">
               <p className="text-muted-foreground leading-relaxed">
-                A measured snapshot of the technologies I work with day-to-day — calibrated to real project depth, not buzzword bingo.
+                Technologies I work with.
               </p>
             </div>
-          </div>
-
-          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {skills.map((s) => (
-              <SkillRing key={s.name} {...s} />
-            ))}
           </div>
 
           <SkillsMarquee />
