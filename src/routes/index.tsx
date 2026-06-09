@@ -230,6 +230,23 @@ function ProjectCard({
   );
 }
 
+function ProjectGrid() {
+  const [openTitle, setOpenTitle] = useState<string | null>(null);
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {projects.map((p) => (
+        <ProjectCard
+          key={p.title}
+          project={p}
+          isOpen={openTitle === p.title}
+          onOpen={() => setOpenTitle(p.title)}
+          onClose={() => setOpenTitle((t) => (t === p.title ? null : t))}
+        />
+      ))}
+    </div>
+  );
+}
+
 
 const skillLogos = [
   { name: "HTML5", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
