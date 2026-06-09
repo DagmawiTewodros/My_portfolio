@@ -40,31 +40,48 @@ const projects = [
       "A local-only mobile app for farmers to manage crops, track watering schedules, and monitor harvest dates. Auto-calculates harvest dates from planting and maturity data, sends push reminders, and supports a full crop journal with photos, yields, and quality tracking.",
     highlights: ["Crop Registration", "Watering Reminders", "Harvest Tracking", "Crop Journal"],
     href: "https://github.com/DagmawiTewodros/farmkeeper",
-    preview: { type: "slideshow" as const, images: [fk1, fk2, fk3, fk4] },
+    preview: {
+      type: "slideshow" as const,
+      images: [fk1, fk2, fk3, fk4],
+      alts: [
+        "FarmKeeper crop registration screen showing planting date input",
+        "FarmKeeper watering schedule and reminder screen",
+        "FarmKeeper harvest tracking screen with date calculator",
+        "FarmKeeper crop journal with photo and yield logging",
+      ],
+    },
   },
   {
     title: "MMIT Web",
     tag: "Web · Institutional",
     description:
-      "A modern website for the Mated Management Institute, designed to present programs, faculty, and student resources with a clean, accessible layout that works across devices.",
+      "A modern website for the Mated Management Institute — built to present programs, faculty, and student resources without friction, across any device.",
     highlights: ["Responsive UI", "Content-driven", "Institutional"],
     href: "https://github.com/DagmawiTewodros/MMIT_web",
-    preview: { type: "image" as const, image: mmitImg },
+    preview: {
+      type: "image" as const,
+      image: mmitImg,
+      alt: "MMIT website homepage showing programs and faculty layout",
+    },
   },
   {
     title: "Lost ID Reporting System",
     tag: "Web · University",
     description:
-      "A reporting system for lost student IDs at Addis Ababa University. Students report missing IDs, finders post matches, and the platform streamlines retrieval through a simple, secure workflow.",
+      "A reporting system for lost student IDs at Addis Ababa University. Students report missing IDs, finders post matches — one platform replaces the whole back-and-forth.",
     highlights: ["Auth Flow", "Reporting Workflow", "Search & Match"],
     href: "https://github.com/Elizabeth-Abay/Lost_Id_Reporting_System",
-    preview: { type: "image" as const, image: lostIdImg },
+    preview: {
+      type: "image" as const,
+      image: lostIdImg,
+      alt: "Lost ID reporting system search and match interface",
+    },
   },
 ];
 
 type ProjectPreview =
-  | { type: "image"; image: string }
-  | { type: "slideshow"; images: string[] };
+  | { type: "image"; image: string; alt: string }
+  | { type: "slideshow"; images: string[]; alts: string[] };
 
 function ProjectCard({
   project,
