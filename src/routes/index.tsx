@@ -169,7 +169,7 @@ function ProjectCard({
             {project.preview.type === "image" ? (
               <img
                 src={project.preview.image}
-                alt={`${project.title} preview`}
+                alt={project.preview.alt}
                 className="absolute inset-0 h-full w-full object-contain p-3"
               />
             ) : (
@@ -178,7 +178,7 @@ function ProjectCard({
                   <img
                     key={src}
                     src={src}
-                    alt={`${project.title} screen ${i + 1}`}
+                    alt={project.preview.type === "slideshow" ? project.preview.alts[i] : ""}
                     className="absolute inset-0 h-full w-full object-contain p-3 transition-opacity duration-700"
                     style={{ opacity: i === slide ? 1 : 0 }}
                   />
