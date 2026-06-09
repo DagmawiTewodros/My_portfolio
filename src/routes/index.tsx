@@ -208,8 +208,7 @@ function ProjectCard({
               type="button"
               onClick={(e) => {
                 e.stopPropagation();
-                setFlipped(false);
-                setSlide(0);
+                onClose();
               }}
               className="absolute top-3 left-3 text-[11px] uppercase tracking-[0.18em] bg-background/90 backdrop-blur border border-border px-3 py-1.5 rounded-full hover:bg-background transition"
             >
