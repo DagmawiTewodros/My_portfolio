@@ -429,10 +429,11 @@ function Index() {
         <div className="mx-auto max-w-6xl px-6 py-28 text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Contact</p>
           <h2 className="mt-4 font-display text-4xl md:text-6xl font-extrabold tracking-tight">
-            Let's build something <span className="text-primary">together</span>.
+            Let's <span className="text-primary">talk</span>.
           </h2>
           <p className="mt-6 max-w-xl mx-auto text-muted-foreground text-lg">
-            Open to collaborations, freelance projects, and interesting problems worth solving.
+            Have a problem worth solving? I'm open to collaborations, freelance projects,
+            and interesting challenges.
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
@@ -444,11 +445,13 @@ function Index() {
               <span>Dagmawi_Tewodros@outlook.com</span>
             </a>
             <a
-              href="tel:+251970514141"
+              href="https://github.com/DagmawiTewodros"
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-2 border border-border px-6 py-3 rounded-full font-medium hover:bg-secondary transition"
             >
-              <Phone className="h-4 w-4" />
-              <span>+251 97 051 4141</span>
+              <Github className="h-4 w-4" />
+              <span>GitHub</span>
             </a>
           </div>
 
