@@ -178,7 +178,7 @@ function ProjectCard({
               <img
                 src={project.preview.image}
                 alt={project.preview.alt}
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full object-contain p-3"
               />
             ) : (
               <>
@@ -187,10 +187,11 @@ function ProjectCard({
                     key={src}
                     src={src}
                     alt={project.preview.type === "slideshow" ? project.preview.alts[i] : ""}
-                    className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
+                    className="absolute inset-0 h-full w-full object-contain p-3 transition-opacity duration-700"
                     style={{ opacity: i === slide ? 1 : 0 }}
                   />
                 ))}
+
                 <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
                   {project.preview.images.map((_, i) => (
                     <span
