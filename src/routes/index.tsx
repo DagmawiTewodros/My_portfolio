@@ -368,21 +368,16 @@ function Index() {
               </a>
             </div>
           </div>
-          <div className="lg:col-span-5 relative h-[420px] md:h-[520px] lg:h-[600px] overflow-hidden">
+          <div className="lg:col-span-5 relative h-[420px] md:h-[520px] lg:h-[600px]">
             <iframe
               src="https://my.spline.design/nexbotrobotcharacterconcept-SwqpvP1Vyfo1hrKya980b1n7/"
               title="3D robot character"
               loading="lazy"
-              className="absolute left-1/2 top-1/2 border-0"
-              style={{
-                width: "160%",
-                height: "160%",
-                transform: "translate(-50%, -42%)",
-              }}
+              className="absolute inset-0 h-full w-full border-0"
               allow="autoplay; fullscreen"
             />
             {/* Cover Spline watermark */}
-            <div className="absolute bottom-0 right-0 h-14 w-48 bg-background pointer-events-none" />
+            <div className="absolute bottom-2 right-2 h-10 w-40 bg-background rounded-md pointer-events-none" />
           </div>
         </div>
       </section>
