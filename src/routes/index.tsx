@@ -338,33 +338,46 @@ function Index() {
       {/* Hero */}
       <section id="top" className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 [background:radial-gradient(60%_50%_at_50%_0%,oklch(0.62_0.19_258_/_0.12),transparent_70%)]" />
-        <div className="mx-auto max-w-6xl px-6 pt-24 pb-28 md:pt-36 md:pb-40">
-          <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-6">
-            Software Developer · Addis Ababa
-          </p>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold leading-[1.02] tracking-tight max-w-4xl">
-            Software that works — <span className="text-primary">clean, fast,</span> and built to last.
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            I'm Dagmawi Tewodros — a software developer based in Addis Ababa working
-            across web and mobile. I turn real-world problems into responsive,
-            performant, and secure applications.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a
-              href="#work"
-              className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition"
-            >
-              <span>View selected work</span> <ArrowUpRight className="h-4 w-4" />
-            </a>
-            <a
-              href="https://github.com/DagmawiTewodros"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 border border-border px-6 py-3 rounded-full font-medium hover:bg-secondary transition"
-            >
-              <Github className="h-4 w-4" /> <span>GitHub</span>
-            </a>
+        <div className="mx-auto max-w-6xl px-6 pt-24 pb-28 md:pt-32 md:pb-32 grid lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-7">
+            <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-6">
+              Software Developer · Addis Ababa
+            </p>
+            <h1 className="font-display text-5xl md:text-7xl lg:text-[4.75rem] font-extrabold leading-[1.02] tracking-tight">
+              Software that works — <span className="text-primary">clean, fast,</span> and built to last.
+            </h1>
+            <p className="mt-8 max-w-2xl text-lg text-muted-foreground leading-relaxed">
+              I'm Dagmawi Tewodros — a software developer based in Addis Ababa working
+              across web and mobile. I turn real-world problems into responsive,
+              performant, and secure applications.
+            </p>
+            <div className="mt-10 flex flex-wrap items-center gap-3">
+              <a
+                href="#work"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-full font-medium hover:bg-primary/90 transition"
+              >
+                <span>View selected work</span> <ArrowUpRight className="h-4 w-4" />
+              </a>
+              <a
+                href="https://github.com/DagmawiTewodros"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 border border-border px-6 py-3 rounded-full font-medium hover:bg-secondary transition"
+              >
+                <Github className="h-4 w-4" /> <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+          <div className="lg:col-span-5 relative h-[420px] md:h-[520px] lg:h-[600px]">
+            <iframe
+              src="https://my.spline.design/nexbotrobotcharacterconcept-SwqpvP1Vyfo1hrKya980b1n7/"
+              title="3D robot character"
+              loading="lazy"
+              className="absolute inset-0 h-full w-full border-0"
+              allow="autoplay; fullscreen"
+            />
+            {/* Cover Spline watermark */}
+            <div className="absolute bottom-0 right-0 h-14 w-48 bg-background pointer-events-none" />
           </div>
         </div>
       </section>
