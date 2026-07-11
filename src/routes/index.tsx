@@ -338,8 +338,8 @@ function Index() {
       {/* Hero */}
       <section id="top" className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10 [background:radial-gradient(60%_50%_at_50%_0%,oklch(0.62_0.19_258_/_0.12),transparent_70%)]" />
-        <div className="mx-auto max-w-6xl px-6 pt-24 pb-28 md:pt-32 md:pb-32 grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-7">
+        <div className="mx-auto max-w-6xl px-6 pt-24 pb-28 md:pt-32 md:pb-32">
+          <div className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-6">
               Software Developer · Addis Ababa
             </p>
@@ -367,17 +367,6 @@ function Index() {
                 <Github className="h-4 w-4" /> <span>GitHub</span>
               </a>
             </div>
-          </div>
-          <div className="lg:col-span-5 relative w-full h-[320px] sm:h-[400px] md:h-[480px] lg:h-[560px] overflow-hidden rounded-2xl">
-            <iframe
-              src="https://my.spline.design/nexbotrobotcharacterconcept-SwqpvP1Vyfo1hrKya980b1n7/"
-              title="3D robot character"
-              loading="lazy"
-              className="block h-full w-full border-0"
-              allow="autoplay; fullscreen"
-            />
-            {/* Cover Spline watermark */}
-            <div className="absolute bottom-2 right-2 h-10 w-40 bg-background rounded-md pointer-events-none" />
           </div>
         </div>
       </section>
