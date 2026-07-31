@@ -613,7 +613,7 @@ function HeroRobot() {
   return (
     <div
       aria-hidden="true"
-      className="hero-robot pointer-events-none absolute inset-0 z-[1] h-full w-full overflow-hidden opacity-30 sm:opacity-45 md:opacity-65 lg:opacity-100"
+      className="hero-robot pointer-events-none absolute inset-0 z-[1] h-full w-full overflow-hidden"
     >
       <div className="hero-robot-scene absolute inset-0">
         <iframe
@@ -624,38 +624,6 @@ function HeroRobot() {
           allow="fullscreen"
         />
       </div>
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `(() => {
-            const scene = document.currentScript.previousElementSibling;
-            const hero = scene && scene.closest('.hero-section');
-            if (!scene || !hero || scene.dataset.pointerFollow ||
-              matchMedia('(prefers-reduced-motion: reduce)').matches ||
-              !matchMedia('(pointer: fine)').matches) return;
-            scene.dataset.pointerFollow = 'true';
-            let currentX = 0, currentY = 0, targetX = 0, targetY = 0;
-            const reset = () => { targetX = 0; targetY = 0; };
-            const track = (event) => {
-              const bounds = hero.getBoundingClientRect();
-              if (event.clientX < bounds.left || event.clientX > bounds.right ||
-                event.clientY < bounds.top || event.clientY > bounds.bottom) return reset();
-              targetX = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / bounds.width * 2 - 1));
-              targetY = Math.max(-1, Math.min(1, (event.clientY - bounds.top) / bounds.height * 2 - 1));
-            };
-            const render = () => {
-              currentX += (targetX - currentX) * 0.1;
-              currentY += (targetY - currentY) * 0.1;
-              scene.style.setProperty('--robot-shift-x', currentX * 16 + 'px');
-              scene.style.setProperty('--robot-shift-y', currentY * 8 + 'px');
-              scene.style.setProperty('--robot-tilt-x', -currentY * 3.5 + 'deg');
-              scene.style.setProperty('--robot-tilt-y', currentX * 3.5 + 'deg');
-              requestAnimationFrame(render);
-            };
-            addEventListener('pointermove', track, { passive: true });
-            requestAnimationFrame(render);
-          })();`,
-        }}
-      />
     </div>
   );
 }
@@ -681,14 +649,14 @@ function Index() {
 
         <HeroRobot />
 
+        <div 
+          className="hero-text-backdrop pointer-events-none absolute inset-y-0 left-0 z-[5] w-full md:w-[60%] bg-gradient-to-r from-background via-background/90 to-transparent" 
+          aria-hidden="true" 
+        />
+
         <div className="relative z-10 flex flex-1 items-center">
           <div className="shell py-28 md:py-32">
             <div className="relative max-w-[34rem] md:max-w-[38rem] lg:max-w-[56%]">
-              {/* Legibility wash — sits only behind the copy, never over the robot. */}
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -inset-x-6 -inset-y-8 -z-10 rounded-[3rem] bg-[radial-gradient(ellipse_at_left,oklch(0.985_0.015_175_/_0.98)_0%,oklch(0.985_0.015_175_/_0.82)_58%,transparent_100%)] md:-inset-x-12 md:-inset-y-12 lg:-right-28"
-              />
 
               <p className="t-eyebrow">Software Developer · Addis Ababa</p>
 

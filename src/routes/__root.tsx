@@ -81,8 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Dagmawi Tewodros — Software Developer" },
       { name: "twitter:description", content: "Portfolio of Dagmawi Tewodros, a software developer based in Addis Ababa building web and mobile applications." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/94c36660-ff9c-461a-aa5a-a98e3d3aebb5/id-preview-e4c79c53--6d1e176b-aaf6-4006-8693-242b5aa0cc1b.lovable.app-1780952004002.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/94c36660-ff9c-461a-aa5a-a98e3d3aebb5/id-preview-e4c79c53--6d1e176b-aaf6-4006-8693-242b5aa0cc1b.lovable.app-1780952004002.png" },
+
     ],
     links: [
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
