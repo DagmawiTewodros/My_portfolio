@@ -36,6 +36,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-ink: var(--primary-ink);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -99,9 +100,23 @@
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
 
-  --font-display: 'Inter', system-ui, sans-serif;
+  /* Type pairing: Sora is the confident geometric display face, Inter the
+     highly legible body face. Never swap these two roles. */
+  --font-display: 'Sora', 'Inter', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Accent used for text on light backgrounds. Darker than --primary so small
+     text clears WCAG AA (4.5:1); --primary stays for fills where white sits on top. */
+  --primary-ink: oklch(0.44 0.1 180);
+
+  /* Vertical rhythm, 8px base unit. Fluid rather than stepped: adjacent
+     sections stack their padding, so a flat 9rem produced a 288px void
+     between blocks that only hold ~230px of content. Curve runs
+     72px @375 → 87px @768 → 97px @1024 → 112px @1440+. */
+  --space-section: clamp(4.5rem, 4vw + 3.5rem, 7rem);
+
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .dark {
@@ -137,6 +152,7 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+  --primary-ink: oklch(0.85 0.06 180);
 }
 
 @layer base {
@@ -144,11 +160,21 @@
     border-color: var(--color-border);
   }
 
+  html {
+    scroll-behavior: smooth;
+    /* Keeps anchor targets clear of the 64px sticky header. */
+    scroll-padding-top: 5.5rem;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Nothing on this page is meant to scroll sideways. */
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6, .font-display {
@@ -158,5 +184,236 @@
 
   code, .font-mono {
     font-family: var(--font-mono);
+  }
+
+  ::selection {
+    background: oklch(0.52 0.11 180 / 0.22);
+    color: var(--color-foreground);
+  }
+
+  /* One consistent, visible focus treatment across every interactive element. */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /*
+   * Type scale. Every section heading uses these so sizes never drift.
+   *   .t-eyebrow  – small uppercase label above a heading
+   *   .t-h2       – section heading
+   *   .t-lead     – intro paragraph under a heading
+   *   .t-body     – standard prose
+   */
+  .t-eyebrow {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--color-muted-foreground);
+  }
+
+  .t-h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 1.55rem + 4vw, 4.5rem);
+    /* Roomier than the old 1.02 so the three lines breathe, with optical
+       tracking that tightens as the type grows. */
+    line-height: 1.09;
+    letter-spacing: -0.035em;
+    color: var(--color-foreground);
+  }
+
+  .t-h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.875rem, 1.35rem + 2.2vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--color-foreground);
+  }
+
+  .t-h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--color-foreground);
+  }
+
+  .t-lead {
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-muted-foreground);
+  }
+
+  @media (min-width: 768px) {
+    .t-lead {
+      font-size: 1.125rem;
+    }
+  }
+
+  .t-body {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-muted-foreground);
+  }
+
+  /* Shared page gutter: identical on every section at every breakpoint. */
+  .shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 72rem;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2rem;
+    }
+  }
+
+  .section-y {
+    padding-block: var(--space-section);
+  }
+
+  /* Animated underline for text links — grows from the left, never snaps. */
+  .link-underline {
+    position: relative;
+    transition: color 220ms var(--ease-out-soft);
+  }
+
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 320ms var(--ease-out-soft);
+  }
+
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  /* Buttons: lift + soften shadow on hover, settle on press. */
+  .btn-lift {
+    transition:
+      transform 240ms var(--ease-out-soft),
+      box-shadow 240ms var(--ease-out-soft),
+      background-color 240ms var(--ease-out-soft),
+      border-color 240ms var(--ease-out-soft),
+      color 240ms var(--ease-out-soft);
+  }
+
+  .btn-lift:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-lift:active {
+    transform: translateY(0);
+    transition-duration: 80ms;
+  }
+}
+
+@layer utilities {
+  /* Very fine film grain — adds depth to flat fills without reading as texture. */
+  .bg-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  }
+
+  /* Scroll reveal. The `.js` gate means content stays visible if JS never runs. */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 520ms var(--ease-out-soft),
+      transform 520ms var(--ease-out-soft);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .js .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Seamless marquee: the track holds two identical halves, so translating
+     exactly -50% lands on a pixel-identical frame. */
+  @keyframes marquee-x {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+
+  .marquee-track {
+    animation: marquee-x var(--marquee-duration, 46s) linear infinite;
+  }
+
+  /* Second row travels the opposite way. Both halves are identical, so
+     running the same keyframes in reverse stays seamless. */
+  .marquee-track--reverse {
+    animation-direction: reverse;
+  }
+
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes float-hint {
+    0%, 100% { transform: translateY(0); opacity: 0.75; }
+    50% { transform: translateY(6px); opacity: 1; }
+  }
+
+  .animate-float-hint {
+    animation: float-hint 2.4s ease-in-out infinite;
+  }
+
+  /* Values are driven by HeroRobot's rAF loop. The scene itself is an
+     external, cross-origin Spline iframe, so this is deliberately a subtle
+     presentation tilt rather than a coarse camera movement. */
+  .hero-robot-scene {
+    transform: perspective(1400px) translate3d(
+      var(--robot-shift-x, 0px),
+      var(--robot-shift-y, 0px),
+      0
+    ) rotateX(var(--robot-tilt-x, 0deg)) rotateY(var(--robot-tilt-y, 0deg));
+    transform-origin: 55% 48%;
+    will-change: transform;
   }
 }

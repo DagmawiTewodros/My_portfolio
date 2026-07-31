@@ -85,11 +85,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/94c36660-ff9c-461a-aa5a-a98e3d3aebb5/id-preview-e4c79c53--6d1e176b-aaf6-4006-8693-242b5aa0cc1b.lovable.app-1780952004002.png" },
     ],
     links: [
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/favicon.svg" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      // Sora = display, Inter = body, JetBrains Mono = code.
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@400;500;600;700;800&display=swap",
       },
       {
         rel: "stylesheet",
@@ -107,6 +110,16 @@ function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+        {/*
+         * Marks the document as JS-capable before first paint. Scroll-reveal
+         * styles are gated behind `.js`, so content stays visible (never stuck
+         * at opacity 0) if scripts fail to load.
+         */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.classList.add('js')",
+          }}
+        />
         <HeadContent />
       </head>
       <body>
