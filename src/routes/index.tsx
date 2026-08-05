@@ -17,8 +17,8 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import mmitImg from "@/assets/mmit.webp";
-import lostIdImg from "@/assets/lostid.webp";
+import mmitImg from "@/assets/mmit.png";
+import pulseImg from "@/assets/pulse.png";
 import fk1 from "@/assets/farmkeeper-1.webp";
 import fk2 from "@/assets/farmkeeper-2.webp";
 import fk3 from "@/assets/farmkeeper-3.webp";
@@ -51,7 +51,7 @@ const NAV_IDS = NAV_ITEMS.map((item) => item.id);
 type Frame = { src: string; width: number; height: number };
 
 type Preview =
-  | { kind: "screenshot"; src: string; width: number; height: number; alt: string }
+  | { kind: "screenshot"; src: string; width: number; height: number; alt: string; contain?: boolean; bgColor?: string }
   | { kind: "device"; label: string; frames: Frame[] };
 
 type Project = {
@@ -99,22 +99,24 @@ const projects: Project[] = [
       width: 1000,
       height: 469,
       alt: "MMIT website homepage showing programs and faculty layout",
+      contain: true,
+      bgColor: "bg-white",
     },
   },
   {
-    title: "Lost ID Reporting System",
-    tag: "Web · University",
+    title: "Pulse Digital",
+    tag: "Web · Agency",
     description:
-      "A reporting system for lost student IDs at Addis Ababa University. Students report missing IDs, finders post matches — one platform replaces the whole back-and-forth.",
-    highlights: ["Auth Flow", "Reporting Workflow", "Search & Match"],
-    href: "https://github.com/Elizabeth-Abay/Lost_Id_Reporting_System",
-    linkLabel: "View repo",
+      "A modern website for a digital marketing agency offering website building, social media management, and content marketing. Focuses on premium design and responsive UI.",
+    highlights: ["Modern Design", "Marketing", "Responsive UI"],
+    href: "https://pulse2-alpha.vercel.app/",
+    linkLabel: "Visit site",
     preview: {
       kind: "screenshot",
-      src: lostIdImg,
+      src: pulseImg,
       width: 1000,
-      height: 480,
-      alt: "Lost ID reporting system search and match interface",
+      height: 469,
+      alt: "Pulse Digital homepage preview",
     },
   },
 ];
@@ -473,7 +475,7 @@ function ProjectCard({ project }: { project: Project }) {
       className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-[0_1px_2px_oklch(0.22_0.04_180_/_0.05)] transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1.5 hover:border-primary/40 hover:shadow-[0_28px_54px_-28px_oklch(0.22_0.04_180_/_0.4)]"
     >
       {/* Fixed 16:10 media box — identical across every project. */}
-      <div className="relative aspect-[16/10] overflow-hidden border-b border-border/70 bg-[oklch(0.17_0.025_235)]">
+      <div className={cn("relative aspect-[16/10] overflow-hidden border-b border-border/70", project.preview.kind === "screenshot" && project.preview.bgColor ? project.preview.bgColor : "bg-[oklch(0.17_0.025_235)]")}>
         {project.preview.kind === "screenshot" ? (
           <img
             src={project.preview.src}
@@ -482,7 +484,10 @@ function ProjectCard({ project }: { project: Project }) {
             height={project.preview.height}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover object-top transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]"
+            className={cn(
+              "h-full w-full transition-transform duration-[900ms] ease-out group-hover:scale-[1.06]",
+              project.preview.contain ? "object-contain object-center" : "object-cover object-top"
+            )}
           />
         ) : (
           <DeviceShowcase label={project.preview.label} frames={project.preview.frames} />
