@@ -23,6 +23,7 @@ import fk1 from "@/assets/farmkeeper-1.webp";
 import fk2 from "@/assets/farmkeeper-2.webp";
 import fk3 from "@/assets/farmkeeper-3.webp";
 import fk4 from "@/assets/farmkeeper-4.webp";
+import profileImg from "@/assets/profile.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -634,6 +635,91 @@ function HeroRobot() {
 }
 
 /* ------------------------------------------------------------------ */
+/* Profile Card                                                       */
+/* ------------------------------------------------------------------ */
+
+function ProfileCard() {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Normalize coordinates to -1 to 1 for rotation
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = ((y - centerY) / centerY) * -15; // Max 15 deg
+    const rotateY = ((x - centerX) / centerX) * 15;
+    
+    // Percentage for glare position
+    const percentX = (x / rect.width) * 100;
+    const percentY = (y / rect.height) * 100;
+    
+    setRotation({ x: rotateX, y: rotateY });
+    setMousePos({ x: percentX, y: percentY });
+  };
+
+  const handleMouseEnter = () => setIsHovering(true);
+  
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    setRotation({ x: 0, y: 0 });
+    setMousePos({ x: 50, y: 50 });
+  };
+
+  return (
+    <div className="group relative mt-2 inline-block [perspective:1200px] md:mt-6">
+      {/* Ambient glow */}
+      <div className="absolute -inset-2 z-[-1] rounded-[2.5rem] bg-gradient-to-tr from-primary/30 to-primary-ink/30 opacity-40 blur-2xl transition-all duration-500 ease-out group-hover:opacity-80 group-hover:blur-3xl" />
+
+      {/* Back card offset 1 */}
+      <div className="absolute inset-0 z-[-1] translate-x-4 translate-y-4 rotate-3 rounded-[2rem] border border-border/40 bg-secondary/50 backdrop-blur-sm transition-all duration-500 ease-out group-hover:translate-x-6 group-hover:translate-y-6 group-hover:rotate-6 group-hover:bg-secondary/60" />
+
+      {/* Back card offset 2 */}
+      <div className="absolute inset-0 z-[-2] -translate-x-2 -translate-y-2 -rotate-2 rounded-[2rem] border border-primary/20 bg-background/40 backdrop-blur-sm transition-all duration-500 ease-out group-hover:-translate-x-3 group-hover:-translate-y-3 group-hover:-rotate-3" />
+
+      {/* Main container */}
+      <div 
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="relative aspect-square w-48 overflow-hidden rounded-[2rem] border border-border/80 bg-card shadow-xl transition-[transform,box-shadow] ease-out hover:shadow-[0_30px_50px_-15px_oklch(0.22_0.04_180_/_0.4)] md:w-56 lg:w-64"
+        style={{
+          transform: isHovering ? `translateY(-4px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)` : 'translateY(0) rotateX(0deg) rotateY(0deg)',
+          transitionDuration: isHovering ? '75ms' : '500ms',
+          transformStyle: 'preserve-3d'
+        }}
+      >
+        <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-tr from-foreground/10 to-transparent mix-blend-overlay transition-opacity duration-500 group-hover:opacity-0" />
+        <img 
+          src={profileImg} 
+          alt="Dagmawi Tewodros" 
+          className="h-full w-full object-cover grayscale-[40%] transition-all duration-700 ease-out group-hover:scale-[1.08] group-hover:grayscale-0"
+          loading="lazy"
+          decoding="async"
+        />
+        {/* Dynamic Glare */}
+        <div 
+          className="pointer-events-none absolute inset-0 z-20 transition-opacity duration-300"
+          style={{
+            opacity: isHovering ? 0.7 : 0,
+            background: `radial-gradient(circle at ${mousePos.x}% ${mousePos.y}%, rgba(255,255,255,0.3) 0%, transparent 60%)`
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* Page                                                                */
 /* ------------------------------------------------------------------ */
 
@@ -712,12 +798,15 @@ function Index() {
       <section id="about" className="relative border-t border-border/60">
         <div className="shell section-y">
           <div className="grid gap-10 md:grid-cols-12 md:gap-12">
-            <Reveal className="md:col-span-4">
-              <p className="t-eyebrow">About</p>
-              <h2 className="t-h2 mt-4">A short intro.</h2>
+            <Reveal className="md:col-span-4 flex flex-col gap-8 md:gap-12">
+              <div>
+                <p className="t-eyebrow">About</p>
+                <h2 className="t-h2 mt-4">A short intro.</h2>
+              </div>
+              <ProfileCard />
             </Reveal>
 
-            <Reveal delay={120} className="md:col-span-8">
+            <Reveal delay={120} className="md:col-span-8 flex flex-col justify-center">
               <div className="space-y-6">
                 <p className="text-lg leading-relaxed text-foreground md:text-xl md:leading-relaxed">
                   I'm a software developer skilled in HTML, CSS, JavaScript, Python, Flutter, and
