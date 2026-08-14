@@ -15,6 +15,9 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { Suspense, lazy } from "react";
+
+const LazySkills = lazy(() => import("@/components/LazySkills"));
 
 import { cn } from "@/lib/utils";
 import mmitImg from "@/assets/mmit.png";
@@ -37,7 +40,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const EMAIL = "Dagmawi_Tewodros@outlook.com";
+const EMAIL = "dagipommy@gmail.com";
 const GITHUB_URL = "https://github.com/DagmawiTewodros";
 
 const NAV_ITEMS = [
@@ -122,24 +125,7 @@ const projects: Project[] = [
   },
 ];
 
-const skillLogos = [
-  { name: "HTML5", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
-  { name: "CSS3", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" },
-  { name: "JavaScript", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-  { name: "TypeScript", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-  { name: "Python", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-  { name: "Flutter", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" },
-  { name: "Dart", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" },
-  { name: "SQLite", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" },
-  { name: "Git", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-  { name: "GitHub", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
-  { name: "React", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-  { name: "Tailwind CSS", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" },
-  { name: "VS Code", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
-  { name: "Figma", url: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
-];
 
-/* ------------------------------------------------------------------ */
 /* Motion + scroll primitives                                          */
 /* ------------------------------------------------------------------ */
 
@@ -522,90 +508,7 @@ function ProjectCard({ project }: { project: Project }) {
   );
 }
 
-/* ------------------------------------------------------------------ */
-/* Skills                                                              */
-/* ------------------------------------------------------------------ */
 
-/**
- * Two identical halves sit side by side and the track slides exactly -50%, so
- * the loop point is pixel-identical. Each half carries a trailing gutter equal
- * to the gap, otherwise the seam would swallow half a gap and visibly jump.
- */
-const MARQUEE_MASK = "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)";
-
-/** One seamless row. `items` must already be in the order it should scroll. */
-function MarqueeRow({
-  items,
-  reverse = false,
-  duration,
-  label,
-}: {
-  items: typeof skillLogos;
-  reverse?: boolean;
-  duration: string;
-  label?: string;
-}) {
-  return (
-    <div
-      className="marquee relative overflow-hidden"
-      style={{ maskImage: MARQUEE_MASK, WebkitMaskImage: MARQUEE_MASK }}
-    >
-      <div
-        className={cn("marquee-track flex w-max", reverse && "marquee-track--reverse")}
-        style={{ "--marquee-duration": duration } as CSSProperties}
-      >
-        {[0, 1].map((half) => (
-          <ul
-            key={half}
-            aria-hidden={half === 1 || !label ? true : undefined}
-            aria-label={half === 0 ? label : undefined}
-            className="flex shrink-0 items-center gap-3 pr-3 sm:gap-4 sm:pr-4"
-          >
-            {items.map((skill) => (
-              <li
-                key={skill.name}
-                className="group/logo flex h-20 w-24 shrink-0 flex-col items-center justify-center gap-1.5 rounded-2xl border border-border bg-card/80 px-2 backdrop-blur transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_18px_34px_-22px_oklch(0.22_0.04_180_/_0.55)] sm:h-24 sm:w-32 sm:gap-2 sm:px-3"
-              >
-                <img
-                  src={skill.url}
-                  alt=""
-                  width={36}
-                  height={36}
-                  loading="lazy"
-                  decoding="async"
-                  className="h-8 w-8 object-contain opacity-70 grayscale transition duration-300 ease-out group-hover/logo:scale-110 group-hover/logo:opacity-100 group-hover/logo:grayscale-0 sm:h-9 sm:w-9"
-                />
-                <span className="text-center text-[0.6875rem] font-medium leading-tight text-muted-foreground transition-colors duration-300 group-hover/logo:text-foreground">
-                  {skill.name}
-                </span>
-              </li>
-            ))}
-          </ul>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-/**
- * Two counter-scrolling rows. A single row left the section looking sparse
- * (only ~2.5 cards visible at 375px against a lot of empty background), and
- * the opposing directions read as deliberate motion rather than a loop.
- */
-function SkillsMarquee() {
-  const split = Math.ceil(skillLogos.length / 2);
-  // Rotating the second row means the two rows never sit in lockstep.
-  const rowTwo = [...skillLogos.slice(split), ...skillLogos.slice(0, split)];
-
-  return (
-    <div className="mt-12 flex flex-col gap-3 sm:mt-14 sm:gap-4">
-      <MarqueeRow items={skillLogos} duration="46s" label="Technologies I work with" />
-      <MarqueeRow items={rowTwo} reverse duration="54s" />
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
 /* Hero robot                                                          */
 /* ------------------------------------------------------------------ */
 
@@ -616,20 +519,56 @@ function SkillsMarquee() {
  * preserves the model's composition while making it feel responsive.
  */
 function HeroRobot() {
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Defer loading the iframe by 1.5 seconds to ensure main thread is unblocked
+    const timer = setTimeout(() => {
+      setShouldLoad(true);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div
       aria-hidden="true"
       className="hero-robot pointer-events-none absolute inset-0 z-[1] h-full w-full overflow-hidden"
     >
-      <div className="hero-robot-scene absolute inset-0">
-        <iframe
-          title="NEXBOT interactive robot model"
-          src="https://my.spline.design/nexbotrobotcharacterconcept-BmyLPBJpW17BCxXWJk55wwc5/"
-          className="absolute left-1/2 top-0 h-[calc(100%+60px)] w-[120%] max-w-none -translate-x-[46%] border-0 sm:w-[112%] md:w-[106%] lg:w-full lg:-translate-x-1/2"
-          loading="eager"
-          allow="fullscreen"
+      {/* Placeholder that fades out once iframe is fully loaded */}
+      <div 
+        className={cn(
+          "absolute inset-0 transition-opacity duration-1000 z-10",
+          isLoaded ? "opacity-0" : "opacity-100"
+        )}
+      >
+        {/* Decorative Orbs */}
+        <div className="absolute left-[60%] top-[10%] h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-primary/20 blur-[100px] sm:h-[400px] sm:w-[400px] md:h-[500px] md:w-[500px]" />
+        <div className="absolute left-[70%] top-[40%] h-[250px] w-[250px] rounded-full bg-primary-ink/20 blur-[80px] sm:h-[350px] sm:w-[350px]" />
+        
+        {/* Abstract Grid overlay to give it a techy feel without iframe load */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: "linear-gradient(to right, oklch(1 0 0) 1px, transparent 1px), linear-gradient(to bottom, oklch(1 0 0) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+            maskImage: "radial-gradient(ellipse at 70% 40%, black 40%, transparent 70%)"
+          }}
         />
       </div>
+
+      {shouldLoad && (
+        <div className="hero-robot-scene absolute inset-0">
+          <iframe
+            title="NEXBOT interactive robot model"
+            src="https://my.spline.design/nexbotrobotcharacterconcept-BmyLPBJpW17BCxXWJk55wwc5/"
+            className="absolute left-1/2 top-0 h-[calc(100%+60px)] w-[120%] max-w-none -translate-x-[46%] border-0 sm:w-[112%] md:w-[106%] lg:w-full lg:-translate-x-1/2"
+            loading="lazy"
+            allow="fullscreen"
+            onLoad={() => setIsLoaded(true)}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -888,7 +827,9 @@ function Index() {
           </Reveal>
 
           <Reveal delay={120}>
-            <SkillsMarquee />
+            <Suspense fallback={<div className="h-48 w-full animate-pulse rounded-2xl bg-secondary/30 mt-12" />}>
+              <LazySkills />
+            </Suspense>
           </Reveal>
         </div>
       </section>

@@ -382,6 +382,7 @@
 
   .marquee-track {
     animation: marquee-x var(--marquee-duration, 46s) linear infinite;
+    will-change: transform;
   }
 
   /* Second row travels the opposite way. Both halves are identical, so
