@@ -88,10 +88,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "apple-touch-icon", href: "/favicon.svg" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      // Sora = display, Inter = body, JetBrains Mono = code.
+      // Outfit = display, Inter = body, JetBrains Mono = code.
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Sora:wght@400;500;600;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;600;700;800;900&display=swap",
       },
       {
         rel: "stylesheet",
@@ -107,16 +107,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/*
          * Marks the document as JS-capable before first paint. Scroll-reveal
          * styles are gated behind `.js`, so content stays visible (never stuck
-         * at opacity 0) if scripts fail to load.
+         * at opacity 0) if scripts fail to load. `intro-skip` hides the intro
+         * card before first paint on repeat visits in the same session.
          */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.documentElement.classList.add('js')",
+            __html:
+              "document.documentElement.classList.add('js');try{if(sessionStorage.getItem('intro-seen'))document.documentElement.classList.add('intro-skip')}catch(e){}",
           }}
         />
         <HeadContent />
