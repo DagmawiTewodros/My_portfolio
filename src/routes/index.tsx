@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/portfolio/SiteHeader";
 import { Hero } from "@/components/portfolio/Hero";
 import { About } from "@/components/portfolio/About";
 import { Experience } from "@/components/portfolio/Experience";
-import { CurvedGallery } from "@/components/portfolio/CurvedGallery";
+import { RibbonGallery } from "@/components/portfolio/RibbonGallery";
 import { WorksRing } from "@/components/portfolio/WorksRing";
 import { Services } from "@/components/portfolio/Services";
 import { Contact } from "@/components/portfolio/Contact";
@@ -38,7 +38,7 @@ function Index() {
         <Hero />
         <About />
         <Experience />
-        <CurvedGallery />
+        <RibbonGallery />
         <WorksRing />
         <Services />
         <Contact />
